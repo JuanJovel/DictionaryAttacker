@@ -30,19 +30,34 @@ def readFile() -> list:
     # Returns a list of all the passwords
     return passwords;
 
-def hash256String(aString: str) -> str:
+def hashString(aString: str, hashType: int) -> str:
     
-    # Hashes the string using Python's hashlib library
-    hashedString = hashlib.sha256(aString.encode('utf-8')).hexdigest();
+    if (hashType == 512):
+        # Hashes the string using Python's hashlib library
+        hashedString = hashlib.sha512(aString.encode('utf-8')).hexdigest();
     
-    # Returns the hashed string.
-    return hashedString;
+        # Returns the hashed string.
+        return hashedString;
+    
+    else:
+        # Hashes the string using Python's hashlib library
+        hashedString = hashlib.sha256(aString.encode('utf-8')).hexdigest();
+    
+        # Returns the hashed string.
+        return hashedString;
+        
 
-def hash512String(aString: str) -> str:
-    
-    # Hashes the string using Python's hashlib library
-    hashedString = hashlib.sha512(aString.encode('utf-8')).hexdigest();
-    
-    # Returns the hashed string.
-    return hashedString;
+password = input("Enter a password: ")
+hashType = int(input("Select a SHA hash (256 or 512): "))
 
+passwordSize = len(password);
+
+# Hashes the password
+password = hashString(password, hashType)
+    
+passwordList = readFile();
+    
+# TODO: Find if a word is in a password
+for element in passwordList:
+    if passwordSize < len(element):
+        continue;
