@@ -1,4 +1,7 @@
 '''
+
+A program that performs a dictionary attack on a given password.
+
 November 28, 2020
 
 @author: Juan Jovel
@@ -47,13 +50,13 @@ def hashString(aString: str, hashType: int) -> str:
         return hashedString;
         
 
-password = input("Enter a password: ")
+originalPassword = input("Enter a password: ")
 hashType = int(input("Select a SHA hash (256 or 512): "))
 
-passwordSize = len(password);
+passwordSize = len(originalPassword);
 
 # Hashes the password
-password = hashString(password, hashType)
+originalPassword = hashString(originalPassword, hashType)
 
 # Reads password list from file
 passwordList = readFile();
@@ -61,6 +64,10 @@ passwordList = readFile();
 # Adjusts the list to rule out impossible words based on the password size.
 passwordList = [password for password in passwordList if len(password) <= passwordSize];
 
+passwordFound = {};
 # TODO: Find if a word is in a password
 for element in passwordList:
-    continue;
+    element = hash(element, hashType);
+    if (element in originalPassword):
+        # order and add to dictionary.
+        pass;
