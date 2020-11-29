@@ -54,10 +54,13 @@ passwordSize = len(password);
 
 # Hashes the password
 password = hashString(password, hashType)
-    
+
+# Reads password list from file
 passwordList = readFile();
-    
+
+# Adjusts the list to rule out impossible words based on the password size.
+passwordList = [password for password in passwordList if len(password) <= passwordSize];
+
 # TODO: Find if a word is in a password
 for element in passwordList:
-    if passwordSize < len(element):
-        continue;
+    continue;
