@@ -48,7 +48,14 @@ def hashString(aString: str, hashType: int) -> str:
     
         # Returns the hashed string.
         return hashedString;
-        
+
+# Returns a list that excludes all the words that are bigger than the length of the password.
+def optimizeDictionary(oldDictionary: list, passwordLength: int) -> list:
+    
+    # Optimizes the dictionary so only words within the constraints are included.
+    newDictionary = [element for element in oldDictionary if len(element) <= passwordLength]
+    
+    return newDictionary;
 
 originalPassword = input("Enter a password: ")
 hashType = int(input("Select a SHA hash (256 or 512): "))
@@ -62,12 +69,21 @@ originalPassword = hashString(originalPassword, hashType)
 passwordList = readFile();
 
 # Adjusts the list to rule out impossible words based on the password size.
-passwordList = [password for password in passwordList if len(password) <= passwordSize];
+passwordList = optimizeDictionary(passwordList, passwordSize)
 
+# Use a dictionary to keep track of the order of the password.
 passwordFound = {};
-# TODO: Find if a word is in a password
+
+# Runs through all the elements
 for element in passwordList:
+    # If we have figured out every word in the password, then no need to check any further.
+    if (len(originalPassword) == 0):
+        break;
+    
+    # Hash the current element.
     element = hash(element, hashType);
+    
+    # If the hash of the element is a substring of the password.
     if (element in originalPassword):
         # order and add to dictionary.
         pass;
