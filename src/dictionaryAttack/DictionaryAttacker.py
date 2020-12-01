@@ -31,6 +31,7 @@ class DictionaryAttacker:
     def readDictionary(self) -> list:
         '''
         Reads the dictionary located in the resource folder.
+        
         @return A list of strings containing all the words in the dictionary text file.
         '''
     
@@ -56,6 +57,7 @@ class DictionaryAttacker:
     def hashString(self, aString: str) -> str:
         '''
         Hashes the given string using the hash type specified in the constructor.
+        
         @return The hashed string in hex.
         '''
         if (self.hashType == 512):
