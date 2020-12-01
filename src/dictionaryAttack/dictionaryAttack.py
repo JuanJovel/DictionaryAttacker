@@ -60,6 +60,10 @@ def optimizeDictionary(oldDictionary: list, passwordLength: int) -> list:
 originalPassword = input("Enter a password: ")
 hashType = int(input("Select a SHA hash (256 or 512): "))
 
+if (hashType != 256 or hashType != 512):
+    print("SHA"+str(hashType)+" not supported...");
+    print("Using SHA256")
+
 passwordSize = len(originalPassword);
 
 # Hashes the password
@@ -81,7 +85,7 @@ for element in passwordList:
         break;
     
     # Hash the current element.
-    element = hash(element, hashType);
+    element = hashString(element, hashType);
     
     # If the hash of the element is a substring of the password.
     if (element in originalPassword):
