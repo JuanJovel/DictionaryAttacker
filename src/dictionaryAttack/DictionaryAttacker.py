@@ -14,7 +14,12 @@ import binascii;
 
 class DictionaryAttacker:
     
-
+    def __init__(self, plainTextPassword: str, hashType: int):
+        self.hashType = hashType;
+        self.hashedPassword = self.hashString(plainTextPassword);
+        self.passwordLength = len(plainTextPassword);
+        
+        
     # Reads the passwords from the resource folder and returns a list containing all the passwords
     # without the newline character.
     def readDictionary(self) -> list:
@@ -38,9 +43,9 @@ class DictionaryAttacker:
         # Returns a list of all the passwords
         return dictionary;
 
-    def hashString(self, aString: str, hashType: int) -> str:
+    def hashString(self, aString: str) -> str:
     
-        if (hashType == 512):
+        if (self.hashType == 512):
             # Hashes the string using Python's hashlib library
             hashedString = hashlib.pbkdf2_hmac('sha512', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 1000)
     
@@ -56,11 +61,19 @@ class DictionaryAttacker:
 
 
     # Returns a list that excludes all the words that are bigger than the length of the password.
-    def optimizeDictionary(self, oldDictionary: list, passwordLength: int) -> list:
+    def optimizeDictionary(self, oldDictionary: list) -> list:
         
         # Rules out any words longer than the password.
-        newDictionary = [element for element in oldDictionary if len(element) <= passwordLength];
+        newDictionary = [element for element in oldDictionary if len(element) == self.passwordLength];
         
         # TODO: Explore combinations based on the length of the password.
         
         return newDictionary;
+    
+    def attack(self, dictionary: list) -> str:
+        passwordFound = "";
+        for element in dictionary:
+            if (self.hashString(element) == self.hashedPassword):
+                passwordFound = element;
+                break;
+        return passwordFound;
