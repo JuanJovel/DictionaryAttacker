@@ -8,6 +8,7 @@ November 30, 2020
 '''
 
 from dictionaryAttack.DictionaryAttacker import DictionaryAttacker;
+import time;
 
 attacker = DictionaryAttacker();
 
@@ -21,27 +22,33 @@ if (hashType != 256 and hashType != 512):
 passwordSize = len(originalPassword);
 
 # Hashes the password
-originalPassword = attacker.hashString(originalPassword, hashType)
+hashedPassword = attacker.hashString(originalPassword, hashType)
 
 # Reads password list from file
 passwordList = attacker.readDictionary();
 
-# Adjusts the list to rule out impossible words based on the password size.
-passwordList = attacker.optimizeDictionary(passwordList, passwordSize)
-
+# Maybe this should be an instance variable of the DictionaryAttacker class.
 # Use a dictionary to keep track of the order of the password.
-passwordFound = {};
-
-# Runs through all the elements
-for element in passwordList:
-    # If we have figured out every word in the password, then no need to check any further.
-    if (len(originalPassword) == 0):
-        break;
+passwordFound = ""
     
+# A password we will modify as we loop
+testPassword = originalPassword;
+
+startTime = time.time();
+
+# Adjusts the list to rule out impossible words based on the password size.
+passwordList = attacker.optimizeDictionary(passwordList, len(testPassword))
+    
+for element in passwordList:
     # Hash the current element.
-    element = attacker.hashString(element, hashType);
+    plainTextElement = element;
+    hashedElement = attacker.hashString(element, hashType);
     
     # If the hash of the element is a substring of the password.
-    if (element in originalPassword):
-        # order and add to dictionary.
-        pass;
+    if (hashedElement in hashedPassword):
+        passwordFound = plainTextElement;
+        break;
+            
+endTime = time.time();
+print("Password was cracked using dictionary attack in: "+str(endTime-startTime)+" seconds")
+print("The password is: "+ passwordFound);
