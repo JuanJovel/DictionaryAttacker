@@ -53,7 +53,7 @@ class DictionaryAttacker:
             return hashedString;
 
 
-        # Returns a list that excludes all the words that are bigger than the length of the password.
+    # Returns a list that excludes all the words that are bigger than the length of the password.
     def optimizeDictionary(self, oldDictionary: list, passwordLength: int) -> list:
     
         # Optimizes the dictionary so only words within the constraints are included.
