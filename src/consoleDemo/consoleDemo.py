@@ -37,7 +37,12 @@ passwordFound = attacker.attack(passwordList);
 
 # If the length of the password found after the preliminary attack is zero, then the password MUST be a combination.
 if (len(passwordFound) == 0):
-    pass;
+    attacker.setIsCombination(True);
+    passwordList = attacker.optimizeDictionary(attacker.readDictionary());
+
+# While the the password isn't found
+while (len(passwordFound) == 0):
+    attacker.attack(passwordList);
 
 endTime = time.time();
 print("Password was cracked using dictionary attack in: "+str(endTime-startTime)+" seconds")

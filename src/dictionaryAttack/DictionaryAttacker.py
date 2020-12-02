@@ -12,8 +12,9 @@ from pathlib import Path;
 import hashlib;
 import binascii;
 
-
 class DictionaryAttacker:
+    
+    isCombination = False;
     
     def __init__(self, plainTextPassword: str, hashType: int):
         '''
@@ -83,11 +84,15 @@ class DictionaryAttacker:
         @return A list that is optimized to crack the password.
         '''
         
-        # Rules out any words longer than the password.
-        newDictionary = [element for element in oldDictionary if len(element) == self.passwordLength];
+        # Rules out any words longer or shorter than the password.
+        if (not self.isCombination):
+            newDictionary = [element for element in oldDictionary if len(element) == self.passwordLength];
         
         # TODO: Explore combinations based on the length of the password.
-        
+        else:
+            # I have no idea
+            newDictionary = [];
+            
         return newDictionary;
     
     
@@ -115,3 +120,13 @@ class DictionaryAttacker:
             
         # Return the password found, will be empty if attack was unsuccessful using given dictionary.
         return passwordFound;
+    
+    
+    def setIsCombination(self, newValue: bool):
+        '''
+        Sets the combination instance variable to the parameter.
+        
+        @param newValue: The new boolean value for isCombination instance variable.
+        
+        '''
+        self.isCombination = newValue;
