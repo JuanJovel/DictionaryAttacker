@@ -41,8 +41,7 @@ if (len(passwordFound) == 0):
     passwordList = attacker.optimizeDictionary(attacker.readDictionary());
 
 # While the the password isn't found
-while (len(passwordFound) == 0):
-    attacker.attack(passwordList);
+passwordFound = attacker.attack(passwordList);
 
 endTime = time.time();
 print("Password was cracked using dictionary attack in: "+str(endTime-startTime)+" seconds")

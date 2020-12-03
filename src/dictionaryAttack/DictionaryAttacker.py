@@ -90,8 +90,11 @@ class DictionaryAttacker:
         
         # TODO: Explore combinations based on the length of the password.
         else:
-            # I have no idea
-            newDictionary = [];
+            # Eliminate all words that aren't strictly smaller than the password.
+            newDictionary = [element for element in oldDictionary if len(element) < self.passwordLength];
+            
+            # Sort the dictionary by length of elements
+            newDictionary.sort(key=len);
             
         return newDictionary;
     
@@ -106,17 +109,22 @@ class DictionaryAttacker:
         # Initializes the password found to an empty string.
         passwordFound = "";
         
-        # Runs through the dictionary.
-        for element in dictionary:
+        if (not self.isCombination):
+            # Runs through the dictionary.
+            for element in dictionary:
             
-            # If the hash of an element in the dictionary matches the hashed password we cracked the password.
-            if (self.hashString(element) == self.hashedPassword):
+                # If the hash of an element in the dictionary matches the hashed password we cracked the password.
+                if (self.hashString(element) == self.hashedPassword):
                 
-                # Set the password found to the plain text element.
-                passwordFound = element;
+                    # Set the password found to the plain text element.
+                    passwordFound = element;
                 
-                # Exit the loop, we don't need to check any further.
-                break;
+                    # Exit the loop, we don't need to check any further.
+                    break;
+        
+        # If it is a combination the combination attack method takes over.   
+        else:
+            passwordFound = self.__combinationAttack(dictionary);
             
         # Return the password found, will be empty if attack was unsuccessful using given dictionary.
         return passwordFound;
@@ -130,3 +138,11 @@ class DictionaryAttacker:
         
         '''
         self.isCombination = newValue;
+        
+    def __combinationAttack(self, dictionary: list) -> str:
+        passwordFound = "";
+        for i in range(len(dictionary)):
+            pass;
+            # do stuff              
+            
+        return passwordFound;
