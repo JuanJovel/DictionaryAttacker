@@ -13,6 +13,7 @@ import hashlib;
 import binascii;
 import itertools;
 
+
 class DictionaryAttacker:
     
     isCombination = False;
@@ -28,7 +29,6 @@ class DictionaryAttacker:
         self.hashType = hashType;
         self.hashedPassword = self.hashString(plainTextPassword);
         self.passwordLength = len(plainTextPassword);
-        
         
     def readDictionary(self) -> list:
         '''
@@ -75,7 +75,6 @@ class DictionaryAttacker:
     
             # Returns the hashed string.
             return binascii.hexlify(hashedString)
-
     
     def optimizeDictionary(self, oldDictionary: list) -> list:
         '''
@@ -98,7 +97,6 @@ class DictionaryAttacker:
             newDictionary.sort(key=len);
             
         return newDictionary;
-    
     
     def attack(self, dictionary: list) -> str:
         '''
@@ -130,7 +128,6 @@ class DictionaryAttacker:
         # Return the password found, will be empty if attack was unsuccessful using given dictionary.
         return passwordFound;
     
-    
     def setIsCombination(self, newValue: bool):
         '''
         Sets the combination instance variable to the parameter.
@@ -138,21 +135,50 @@ class DictionaryAttacker:
         @param newValue: The new boolean value for isCombination instance variable.
         
         '''
+        
         self.isCombination = newValue;
         
     def __combinationAttack(self, dictionary: list) -> str:
+        '''
+        Uses the itertools library to perform a dictionary attack if the password
+        is a combination of words from the dictionary.
+        
+        @param dictionary: The dictionary to use for the attack.
+        
+        '''
+        
+        # Initializes the password found to an empty string.
         passwordFound = "";
-        for i in range(2, len(dictionary)):
+        
+        # Looks through all possible combinations of words.
+        for i in range(2, len(dictionary) + 1):
+            
+            # Generates a combination.
             generator = itertools.product(dictionary, repeat=i);
-            print("Trying combinations of "+str(i))
+            
+            # Try-except block to handle the StopIteration when there's no more combinations.
             try:
                 while(True):
+                    
+                    # Joins the tuple returned into a string.
                     currentGuess = ''.join(next(generator));
+                    
+                    # Only tries the passwords that have the same length as the one we are
+                    # looking for.
                     if (len(currentGuess) == self.passwordLength):
+                        
+                        # Checks if the hash matches.
                         if (self.hashString(currentGuess) == self.hashedPassword):
+                            
+                            # If it does we have found the password.
                             passwordFound = currentGuess;
                             return passwordFound;
+            
+            # If this is thrown there are no more combinations of that amount of words.
             except StopIteration:
+                
+                # Move on to the next amount.
                 pass;
         
+        # If the password wasn't found this string will be empty.
         return passwordFound;
