@@ -34,7 +34,6 @@ passwordList = attacker.optimizeDictionary(passwordList);
 passwordFound = "";
 # Preliminary attack: Will only work for a single word in the dictionary, no combinations.
 passwordFound = attacker.attack(passwordList);
-
 # If the length of the password found after the preliminary attack is zero, then the password MUST be a combination.
 if (len(passwordFound) == 0):
     attacker.setIsCombination(True);
