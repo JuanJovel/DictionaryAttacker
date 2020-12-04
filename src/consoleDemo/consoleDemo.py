@@ -40,7 +40,7 @@ if (len(passwordFound) == 0):
     attacker.setIsCombination(True);
     passwordList = attacker.optimizeDictionary(attacker.readDictionary());
 
-# While the the password isn't found
+# Brute-force combination attack.
 passwordFound = attacker.attack(passwordList);
 
 endTime = time.time();

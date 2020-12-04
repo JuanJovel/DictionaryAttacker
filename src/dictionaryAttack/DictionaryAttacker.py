@@ -11,6 +11,7 @@ November 28, 2020
 from pathlib import Path;
 import hashlib;
 import binascii;
+import itertools;
 
 class DictionaryAttacker:
     
@@ -63,14 +64,14 @@ class DictionaryAttacker:
         '''
         if (self.hashType == 512):
             # Hashes the string using Python's hashlib library
-            hashedString = hashlib.pbkdf2_hmac('sha512', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 1000)
+            hashedString = hashlib.pbkdf2_hmac('sha512', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 100)
     
             # Returns the hashed string.
             return binascii.hexlify(hashedString)
     
         else:
             # Hashes the string using Python's hashlib library
-            hashedString = hashlib.pbkdf2_hmac('sha256', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 1000)
+            hashedString = hashlib.pbkdf2_hmac('sha256', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 100)
     
             # Returns the hashed string.
             return binascii.hexlify(hashedString)
@@ -141,8 +142,17 @@ class DictionaryAttacker:
         
     def __combinationAttack(self, dictionary: list) -> str:
         passwordFound = "";
-        for i in range(len(dictionary)):
-            pass;
-            # do stuff              
-            
+        for i in range(2, len(dictionary)):
+            generator = itertools.product(dictionary, repeat=i);
+            print("Trying combinations of "+str(i))
+            try:
+                while(True):
+                    currentGuess = ''.join(next(generator));
+                    if (len(currentGuess) == self.passwordLength):
+                        if (self.hashString(currentGuess) == self.hashedPassword):
+                            passwordFound = currentGuess;
+                            return passwordFound;
+            except StopIteration:
+                pass;
+        
         return passwordFound;
