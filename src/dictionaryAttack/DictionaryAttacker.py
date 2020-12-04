@@ -44,7 +44,7 @@ class DictionaryAttacker:
         myAbsolutePath = str(Path(__file__).parent.parent.parent);
     
         # Specifies the path of the password .txt file
-        dictionaryFilePath = myAbsolutePath + "\\res\\10-million-password-list-top-1000.txt";
+        dictionaryFilePath = myAbsolutePath + "\\res\\10-million-password-list-top-150.txt";
     
         # Opens the file
         file = open(dictionaryFilePath, "r");
