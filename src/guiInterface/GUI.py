@@ -9,22 +9,24 @@ November 28, 2020
 
 '''
 
-import tkinter
+from tkinter import *
+from tkinter import ttk
 from dictionaryAttack.DictionaryAttacker import DictionaryAttacker;
 import time;
 
+hashType = 0
+
+
 def clicked_button1():
     password = passwordField.get()
-    hashtype = hashTypeField.get()
-    crackPassword(password, hashtype)
+    myHashType = hashType;
+    crackPassword(password, myHashType)
 
-def crackPassword(str1, str2):
+
+def crackPassword(str1: str, str2: str):
     attacker = DictionaryAttacker(str1, str2);
     # Reads password list from file
     passwordList = attacker.readDictionary();
-
-    # Maybe this should be an instance variable of the DictionaryAttacker class.
-    passwordFound = ""
 
     startTime = time.time();
 
@@ -43,44 +45,61 @@ def crackPassword(str1, str2):
     passwordFound = attacker.attack(passwordList);
 
     endTime = time.time();
-    timeLabel.configure(text = "Time Elapsed " + str(endTime-startTime) + " seconds")
+    timeElapsed = "{:.2f}".format(endTime - startTime)
+    if (timeElapsed == '0.00'):
+        timeElapsed = '< 0.1'
+    timeLabel.configure(text="Time Elapsed: " + str(timeElapsed) + " seconds")
+    pwordFoundTextLabel.configure(text="Password found was: " + passwordFound)
+    numGuessesTextLabel.configure(text="Number of Guesses: "+str(attacker.numberOfGuesses))
 
 
+def selectHash(hashTypeSelected: int):
+    if (hashTypeSelected == 256):
+        hashType = 256;
 
-root = tkinter.Tk()
+    elif (hashTypeSelected == 512):
+        hashType = 512;
+
+
+root = Tk()
 root.title('Dictionary Attack')
+root.geometry('800x600')
+rootFont = 'Candara'
+style = ttk.Style()
+style.configure('.', font=('Candara', 14))
 
-pwordTextLabel = tkinter.Label(root, text = "Enter password below:", font = ('Helvetica', 20, 'bold'))
-hashTextLabel = tkinter.Label(root, text = "Enter hashType below: (256 or 512)", font = ('Helvetica', 20, 'bold'))
+pwordTextLabel = ttk.Label(root, text="Enter password below:")
+hashTextLabel = ttk.Label(root, text="Select SHA Hashing Type:")
 
-hashTextLabel.place(relx = 0.15, rely = 0.05, anchor = tkinter.CENTER)
+passwordField = ttk.Entry(root, width=30)
+sha256CheckBox = ttk.Checkbutton(root, text='SHA256', command=lambda: selectHash(256))
+sha512CheckBox = ttk.Checkbutton(root, text='SHA512', command=lambda: selectHash(512))
+# passwordField3 = Entry(root, font = ('Helvetica', 16))
+# passwordField4 = Entry(root, font = ('Helvetica', 16))
 
-passwordField = tkinter.Entry(root, font = ('Helvetica', 16))
-hashTypeField = tkinter.Entry(root, font = ('Helvetica', 16))
-#passwordField3 = tkinter.Entry(root, font = ('Helvetica', 16))
-#passwordField4 = tkinter.Entry(root, font = ('Helvetica', 16))
+crackButton1 = ttk.Button(root, text='Crack', command=clicked_button1)  # enter command = function name here
+# crackButton2 = Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
+# crackButton3 = Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
+# n4 = Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
 
-crackButton1 = tkinter.Button(root, text = 'Crack', font = ('Helvetica', 16), command = clicked_button1) #enter command = function name here
-#crackButton2 = tkinter.Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
-#crackButton3 = tkinter.Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
-#n4 = tkinter.Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
+pwordFoundTextLabel = ttk.Label(root, text='')
+numGuessesTextLabel = ttk.Label(root, text='')
 
+hashTextLabel.grid(column=1)
+sha256CheckBox.grid(column=1)
+sha512CheckBox.grid(column=1)
+pwordTextLabel.grid(column=1, rowspan=10)
+passwordField.grid(column=1)
+timeLabel = ttk.Label(root, text="Time Elapsed: ")
+timeLabel.grid(column=1)
+# passwordField3.place(relx = 0.25, rely = 0.55, width = 200, height = 80, anchor = CENTER)
+# passwordField4.place(relx = 0.25, rely = 0.75, width = 200, height = 80, anchor = CENTER)
 
-hashTextLabel.place(relx = 0.25, rely = 0.05, anchor = tkinter.CENTER)
-pwordTextLabel.place(relx = 0.25, rely = 0.30, anchor = tkinter.CENTER)
-
-timeLabel = tkinter.Label(root, text = "Time Elapsed: ", font = ('Helvetica', 20))
-timeLabel.place(relx = 0.55, rely = 0.4, anchor = tkinter.CENTER)
-
-passwordField.place(relx = 0.25, rely = 0.4, width = 200, height = 80, anchor = tkinter.CENTER)
-hashTypeField.place(relx = 0.25, rely = 0.15, width = 200, height = 80, anchor = tkinter.CENTER)
-#passwordField3.place(relx = 0.25, rely = 0.55, width = 200, height = 80, anchor = tkinter.CENTER)
-#passwordField4.place(relx = 0.25, rely = 0.75, width = 200, height = 80, anchor = tkinter.CENTER)
-
-crackButton1.place(relx = 0.60, rely = 0.15, width = 200, height = 80, anchor = tkinter.CENTER)
-#crackButton2.place(relx = 0.60, rely = 0.35, width = 200, height = 80, anchor = tkinter.CENTER)
-#crackButton3.place(relx = 0.60, rely = 0.55, width = 200, height = 80, anchor = tkinter.CENTER)
-#crackButton4.place(relx = 0.60, rely = 0.75, width = 200, height = 80, anchor = tkinter.CENTER)
-
+crackButton1.grid(column=1)
+pwordFoundTextLabel.grid(column=1)
+numGuessesTextLabel.grid(column=1)
+# crackButton2.place(relx = 0.60, rely = 0.35, width = 200, height = 80, anchor = CENTER)
+# crackButton3.place(relx = 0.60, rely = 0.55, width = 200, height = 80, anchor = CENTER)
+# crackButton4.place(relx = 0.60, rely = 0.75, width = 200, height = 80, anchor = CENTER)
 
 root.mainloop()

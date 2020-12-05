@@ -17,6 +17,7 @@ import itertools;
 class DictionaryAttacker:
     
     isCombination = False;
+    numberOfGuesses = 0;
     
     def __init__(self, plainTextPassword: str, hashType: int):
         '''
@@ -114,7 +115,10 @@ class DictionaryAttacker:
             
                 # If the hash of an element in the dictionary matches the hashed password we cracked the password.
                 if (self.hashString(element) == self.hashedPassword):
-                
+                    
+                    #Increments the guess counter
+                    self.numberOfGuesses += 1;
+                    
                     # Set the password found to the plain text element.
                     passwordFound = element;
                 
@@ -166,6 +170,8 @@ class DictionaryAttacker:
                     # Only tries the passwords that have the same length as the one we are
                     # looking for.
                     if (len(currentGuess) == self.passwordLength):
+                        # Increments guess counter.
+                        self.numberOfGuesses += 1;
                         
                         # Checks if the hash matches.
                         if (self.hashString(currentGuess) == self.hashedPassword):
@@ -182,3 +188,4 @@ class DictionaryAttacker:
         
         # If the password wasn't found this string will be empty.
         return passwordFound;
+
