@@ -27,7 +27,7 @@ def crackPassword(str1: str, str2: str):
     attacker = DictionaryAttacker(str1, str2);
     # Reads password list from file
     passwordList = attacker.readDictionary();
-
+    tempList = passwordList
     startTime = time.time();
 
     # Adjusts the list to rule out impossible words based on the password size.
@@ -51,7 +51,7 @@ def crackPassword(str1: str, str2: str):
     timeLabel.configure(text="Time Elapsed: " + str(timeElapsed) + " seconds")
     pwordFoundTextLabel.configure(text="Password found was: " + passwordFound)
     numGuessesTextLabel.configure(text="Number of Guesses: "+str(attacker.numberOfGuesses))
-
+    dictSizeLabel.configure(text="Dictionary Size: " + str(len(tempList)))
 
 def selectHash(hashTypeSelected: int):
     if (hashTypeSelected == 256):
@@ -68,38 +68,34 @@ rootFont = 'Candara'
 style = ttk.Style()
 style.configure('.', font=('Candara', 14))
 
+subtitleLabel = ttk.Label(root, text="Try to Crack a Password", font = ('Candara', 16, "bold"))
 pwordTextLabel = ttk.Label(root, text="Enter password below:")
 hashTextLabel = ttk.Label(root, text="Select SHA Hashing Type:")
 
 passwordField = ttk.Entry(root, width=30)
 sha256CheckBox = ttk.Checkbutton(root, text='SHA256', command=lambda: selectHash(256))
 sha512CheckBox = ttk.Checkbutton(root, text='SHA512', command=lambda: selectHash(512))
-# passwordField3 = Entry(root, font = ('Helvetica', 16))
-# passwordField4 = Entry(root, font = ('Helvetica', 16))
 
-crackButton1 = ttk.Button(root, text='Crack', command=clicked_button1)  # enter command = function name here
-# crackButton2 = Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
-# crackButton3 = Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
-# n4 = Button(root, text = 'Crack', font = ('Helvetica', 16)) #enter command = function name here
+crackButton1 = ttk.Button(root, text='Crack', command=clicked_button1)
 
 pwordFoundTextLabel = ttk.Label(root, text='')
 numGuessesTextLabel = ttk.Label(root, text='')
 
+subtitleLabel.grid(column=1)
 hashTextLabel.grid(column=1)
 sha256CheckBox.grid(column=1)
 sha512CheckBox.grid(column=1)
 pwordTextLabel.grid(column=1, rowspan=10)
 passwordField.grid(column=1)
-timeLabel = ttk.Label(root, text="Time Elapsed: ")
-timeLabel.grid(column=1)
-# passwordField3.place(relx = 0.25, rely = 0.55, width = 200, height = 80, anchor = CENTER)
-# passwordField4.place(relx = 0.25, rely = 0.75, width = 200, height = 80, anchor = CENTER)
+timeLabel = ttk.Label(root, text="")
+dictSizeLabel = ttk.Label(root, text = "")
 
 crackButton1.grid(column=1)
+
+timeLabel.grid(column=1)
+dictSizeLabel.grid(column=1)
 pwordFoundTextLabel.grid(column=1)
 numGuessesTextLabel.grid(column=1)
-# crackButton2.place(relx = 0.60, rely = 0.35, width = 200, height = 80, anchor = CENTER)
-# crackButton3.place(relx = 0.60, rely = 0.55, width = 200, height = 80, anchor = CENTER)
-# crackButton4.place(relx = 0.60, rely = 0.75, width = 200, height = 80, anchor = CENTER)
+
 
 root.mainloop()
