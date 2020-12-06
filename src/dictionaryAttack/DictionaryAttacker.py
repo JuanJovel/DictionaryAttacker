@@ -108,7 +108,7 @@ class DictionaryAttacker:
         '''
         # Initializes the password found to an empty string.
         passwordFound = "";
-        
+        self.numberOfGuesses = 0
         if (not self.isCombination):
             # Runs through the dictionary.
             for element in dictionary:
