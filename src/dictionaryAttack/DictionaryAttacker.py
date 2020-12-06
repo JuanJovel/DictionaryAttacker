@@ -108,16 +108,15 @@ class DictionaryAttacker:
         '''
         # Initializes the password found to an empty string.
         passwordFound = "";
-        self.numberOfGuesses = 0
         if (not self.isCombination):
             # Runs through the dictionary.
             for element in dictionary:
+                
+                #Increments the guess counter
+                self.numberOfGuesses += 1;
             
                 # If the hash of an element in the dictionary matches the hashed password we cracked the password.
                 if (self.hashString(element) == self.hashedPassword):
-                    
-                    #Increments the guess counter
-                    self.numberOfGuesses += 1;
                     
                     # Set the password found to the plain text element.
                     passwordFound = element;
@@ -188,4 +187,4 @@ class DictionaryAttacker:
         
         # If the password wasn't found this string will be empty.
         return passwordFound;
-
+    
