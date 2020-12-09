@@ -83,13 +83,8 @@ def crackPassword(password: str, hashType: int):
         timeArr512.append(endTime-startTime)
         pwordLengArr512.append(len(passwordFound))
         numGuessArr512.append(attacker.numberOfGuesses)
-    
-def selectHash(hashTypeSelected: int):
-    if (hashTypeSelected == 256):
-        hashType = 256;
-
-    elif (hashTypeSelected == 512):
-        hashType = 512;
+    print(timeArr256)
+    print(timeArr512)
 
 def plot512Plots():
     print("Hello")
@@ -118,18 +113,16 @@ dictSizeLabel = ttk.Label(root, text = "")
 passwordField = ttk.Entry(root, width=30)
 
 # Check boxes
-sha256CheckBox = ttk.Checkbutton(root, text='SHA256', command=lambda: selectHash(256))
-sha512CheckBox = ttk.Checkbutton(root, text='SHA512', command=lambda: selectHash(512))
+shaField = ttk.Entry(root, width=30)
 
 # Crack Button
-crackButton = ttk.Button(root, text='Crack', command=lambda: crackPassword(passwordField.get(), hashType))
+crackButton = ttk.Button(root, text='Crack', command=lambda: crackPassword(passwordField.get(), int(shaField.get())))
 
 
 # Place elements.
 subtitleLabel.grid(column=1)
 hashTextLabel.grid(column=1)
-sha256CheckBox.grid(column=1)
-sha512CheckBox.grid(column=1)
+shaField.grid(column=1)
 pwordTextLabel.grid(column=1, rowspan=10)
 passwordField.grid(column=1)
 crackButton.grid(column=1)
