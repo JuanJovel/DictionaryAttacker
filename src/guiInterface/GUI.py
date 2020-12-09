@@ -13,9 +13,16 @@ from tkinter import *  # @UnusedWildImport
 from tkinter import ttk  # @Reimport
 from dictionaryAttack.DictionaryAttacker import DictionaryAttacker;
 import time;
+import matplotlib.pyplot as plt
 
 hashType = 0
 
+timeArr256 = []
+pwordLengArr256 = []
+numGuessArr256 = []
+timeArr512 = []
+pwordLengArr512 = []
+numGuessArr512 = []
 
 def clicked_button1():
     password = passwordField.get()
@@ -65,7 +72,18 @@ def crackPassword(password: str, hashType: int):
     pwordFoundTextLabel.configure(text="Password found was: " + passwordFound)
     numGuessesTextLabel.configure(text="Number of Guesses: "+str(attacker.numberOfGuesses))
     dictSizeLabel.configure(text="Dictionary Size: " + str(len(tempList)))
-
+    print(hashType)
+    if (hashType == 256):
+        print("reached A")
+        timeArr256.append(endTime-startTime)
+        pwordLengArr256.append(len(passwordFound))
+        numGuessArr256.append(attacker.numberOfGuesses)
+    elif (hashType == 512):
+        print("Reached B")
+        timeArr512.append(endTime-startTime)
+        pwordLengArr512.append(len(passwordFound))
+        numGuessArr512.append(attacker.numberOfGuesses)
+    
 def selectHash(hashTypeSelected: int):
     if (hashTypeSelected == 256):
         hashType = 256;
@@ -73,6 +91,9 @@ def selectHash(hashTypeSelected: int):
     elif (hashTypeSelected == 512):
         hashType = 512;
 
+def plot512Plots():
+    print("Hello")
+    
 
 # Create window element.
 root = Tk()
