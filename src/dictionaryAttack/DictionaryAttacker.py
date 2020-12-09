@@ -65,14 +65,14 @@ class DictionaryAttacker:
         '''
         if (self.hashType == 512):
             # Hashes the string using Python's hashlib library
-            hashedString = hashlib.pbkdf2_hmac('sha512', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 100)
+            hashedString = hashlib.pbkdf2_hmac('sha512', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 50)
     
             # Returns the hashed string.
             return binascii.hexlify(hashedString)
     
         else:
             # Hashes the string using Python's hashlib library
-            hashedString = hashlib.pbkdf2_hmac('sha256', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 100)
+            hashedString = hashlib.pbkdf2_hmac('sha256', aString.encode('utf-8'), 'staticSalt'.encode('utf-8'), 50)
     
             # Returns the hashed string.
             return binascii.hexlify(hashedString)
@@ -93,9 +93,6 @@ class DictionaryAttacker:
         else:
             # Eliminate all words that aren't strictly smaller than the password.
             newDictionary = [element for element in oldDictionary if len(element) < self.passwordLength];
-            
-            # Sort the dictionary by length of elements
-            newDictionary.sort(key=len);
             
         return newDictionary;
     
