@@ -65,7 +65,7 @@ def crackPassword(password: str, hashType: int):
     # Add the timer to the window.
     timeElapsed = "{:.2f}".format(endTime - startTime)
     if (timeElapsed == '0.00'):
-        timeElapsed = '< 0.1'
+        timeElapsed = '< 0.01'
     timeLabel.configure(text="Time Elapsed: " + str(timeElapsed) + " seconds")
     
     # Add info to the window.
