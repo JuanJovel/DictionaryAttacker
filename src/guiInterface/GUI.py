@@ -111,7 +111,7 @@ def plot256Plots():
         # Sets the plot back to false
         hasPlotted = False
         
-        # Changes the button back, and readds the other plot button
+        # Changes the button back, and reads the other plot button
         plot256Button.configure(text = "Plot SHA-256 Results")
         plot512Button.grid(column=2, row = 4)
         
@@ -140,7 +140,7 @@ def plot512Plots():
         # Sets the plot back to false
         hasPlotted = False
         
-        # Changes the button back, and readds the other plot button
+        # Changes the button back, and reads the other plot button
         plot512Button.configure(text = "Plot SHA-512 Results")
         plot256Button.grid(column=2, row = 3)
 
@@ -259,7 +259,7 @@ pwordFoundTextLabel = ttk.Label(root, text='')
 numGuessesTextLabel = ttk.Label(root, text='')
 timeLabel = ttk.Label(root, text="")
 dictSizeLabel = ttk.Label(root, text="")
-plotLabel = ttk.Label(root, text = "Plot The Passwords You've Made")
+plotLabel = ttk.Label(root, text = "Plot The Passwords You've Cracked")
 plotLabel.grid(column = 2, row = 1)
 
 # Password Field
