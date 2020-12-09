@@ -244,7 +244,10 @@ def plot256Plot2():
 # Create window element.
 root = Tk()
 root.title('Dictionary Attack')
-root.geometry('550x450')
+
+# Display in full-screen
+root.state('zoomed')
+
 rootFont = 'Candara'
 style = ttk.Style()
 style.configure('.', font=('Candara', 14))
@@ -260,7 +263,7 @@ numGuessesTextLabel = ttk.Label(root, text='')
 timeLabel = ttk.Label(root, text="")
 dictSizeLabel = ttk.Label(root, text="")
 plotLabel = ttk.Label(root, text = "Plot The Passwords You've Cracked")
-plotLabel.grid(column = 2, row = 1)
+plotLabel.grid(column = 2, row = 1, padx=50)
 
 # Password Field
 passwordField = ttk.Entry(root, width=30)
