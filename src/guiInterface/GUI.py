@@ -100,7 +100,7 @@ def plot256Plots():
         hasPlotted = True
         
         # Changes the button to a reset plot button and removes the other button
-        plot256Button.configure(text = "Reset Plots")
+        plot256Button.configure(text = "Add more data")
         plot512Button.grid_forget()
     
     elif (hasPlotted):
@@ -129,7 +129,7 @@ def plot512Plots():
         hasPlotted = True
         
         # Changes the button to a reset plot button and removes the other button
-        plot512Button.configure(text = "Reset Plots")
+        plot512Button.configure(text = "Add more data")
         plot256Button.grid_forget()
 
     elif (hasPlotted):
@@ -149,16 +149,16 @@ def plot512Plot1():
     global canvas1
     
     # Creates a figure and subplot
-    fig = Figure(figsize=(7, 4), dpi=100) 
+    fig = Figure(figsize=(5.5,3.5), constrained_layout=True) 
     plot1 = fig.add_subplot(111)
     
     # Plots a scatterplot  of length vs time
     plot1.scatter(pwordLengArr512, timeArr512) 
     
     # Adds labels to the scatter plot
-    fig.suptitle('The Length of the Password vs Time it Takes to Crack')
-    plot1.set_xlabel('Length of Password (# of characters)')
-    plot1.set_ylabel('Time to Crack (seconds)')
+    fig.suptitle('The Length of the Password vs Time it Takes to Crack', fontsize=10)
+    plot1.set_xlabel('Length of Password (# of characters)', fontsize=10)
+    plot1.set_ylabel('Time to Crack (seconds)', fontsize=10)
     
     # Creates the Tkinter canvas 
     canvas1 = FigureCanvasTkAgg(fig, master=root)   
@@ -173,16 +173,16 @@ def plot256Plot1():
     global canvas1
 
     # Creates a figure and subplot
-    fig = Figure(figsize=(7, 4), dpi=100) 
+    fig = Figure(figsize=(5.5, 3.5), constrained_layout=True) 
     plot1 = fig.add_subplot(111)
     
     # Plots a scatterplot  of length vs time   
     plot1.scatter(pwordLengArr256, timeArr256)
     
     # Adds labels to the scatter plot    
-    fig.suptitle('The Length of the Password vs Time it Takes to Crack')
-    plot1.set_xlabel('Length of Password (# of characters)')
-    plot1.set_ylabel('Time to Crack (seconds)')
+    fig.suptitle('The Length of the Password vs Time it Takes to Crack', fontsize=10)
+    plot1.set_xlabel('Length of Password (# of characters)', fontsize=10)
+    plot1.set_ylabel('Time to Crack (seconds)', fontsize=10)
   
     # Creates the Tkinter canvas 
     canvas1 = FigureCanvasTkAgg(fig, master=root)   
@@ -197,16 +197,16 @@ def plot512Plot2():
     global canvas2
 
     # Creates a figure and subplot
-    fig = Figure(figsize=(7, 4), dpi=100) 
+    fig = Figure(figsize=(5.5, 3.5), constrained_layout=True)
     plot1 = fig.add_subplot(111)
     
     # Plots a scatterplot  of length vs time
-    plot1.scatter(pwordLengArr512, numGuessArr512, c = 'red') 
+    plot1.scatter(pwordLengArr512, numGuessArr512, c = 'red')
     
     # Adds labels to the scatter plot   
-    fig.suptitle('The Length of the Password vs The Number of Guesses')
-    plot1.set_xlabel('Length of Password (# of characters)')
-    plot1.set_ylabel('Number of Guesses')
+    fig.suptitle('The Length of the Password vs The Number of Guesses', fontsize=10)
+    plot1.set_xlabel('Length of Password (# of characters)', fontsize=10)
+    plot1.set_ylabel('Number of Guesses', fontsize=10)
     
     # Creates the Tkinter canvas 
     canvas2 = FigureCanvasTkAgg(fig, master=root)   
@@ -222,17 +222,17 @@ def plot256Plot2():
     global canvas2
     
     # Creates a figure and subplot
-    fig = Figure(figsize=(7, 4), dpi=100) 
+    fig = Figure(figsize=(5.5, 3.5), constrained_layout=True)
     plot1 = fig.add_subplot(111)
 
     # Plots a scatterplot  of length vs time
     plot1.scatter(pwordLengArr256, numGuessArr256, c = 'red')
     
     # Adds labels to the scatter plot   
-    fig.suptitle('The Length of the Password vs The Number of Guesses')
-    plot1.set_xlabel('Length of Password (# of characters)')
-    plot1.set_ylabel('Number of Guesses')
-  
+    fig.suptitle('The Length of the Password vs The Number of Guesses', fontsize=10)
+    plot1.set_xlabel('Length of Password (# of characters)', fontsize=10)
+    plot1.set_ylabel('Number of Guesses', fontsize=10)
+    
     # Creates the Tkinter canvas 
     canvas2 = FigureCanvasTkAgg(fig, master=root)   
     canvas2.draw() 
