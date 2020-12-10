@@ -3,8 +3,8 @@ A console demo of the DictionaryAttacker.
 
 November 30, 2020
 
-@author: Juan Jovel
-@author: Sami Marzougui
+@author: Juan Jovel (jjovel99@vt.edu)
+@author: Sami Marzougui (samim19@vt.edu)
 '''
 
 from dictionaryAttack.DictionaryAttacker import DictionaryAttacker;
